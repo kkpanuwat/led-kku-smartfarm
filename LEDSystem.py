@@ -16,20 +16,28 @@ def closeLED(table=1):
     ledStatus = False
     
 
-
-schedule.every().day.at("20:11").do(openLED)
-schedule.every().day.at("20:15").do(closeLED)
+print(Fore.CYAN+"Start Engince LED System")
+schedule.every().day.at("08:00").do(openLED,table = 3)
+schedule.every().day.at("20:15").do(closeLED, table = 3)
 
 now = datetime.datetime.now()
 
-# Start Time
-start_time_begin = now.replace(hour=19, minute=0, second=0, microsecond=0)
+# # Start Time
+start_time_begin = now.replace(hour=8, minute=00, second=0, microsecond=0)
 start_time_end = now.replace(hour=20, minute=14, second=0, microsecond=0)
 
 
 while True:
+    now = datetime.datetime.now()
     if(ledStatus == False and now >= start_time_begin and now <= start_time_end):
-        openLED()
+        openLED(table=3)
+    elif(ledStatus == True and now >= start_time_end):
+        closeLED(table=3)
+
     
-    schedule.run_pending()
-    time.sleep(1)
+    
+    
+    
+    
+    
+    time.sleep(10)
